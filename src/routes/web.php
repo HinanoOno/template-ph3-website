@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +35,13 @@ require __DIR__.'/auth.php';
 
 Route::get('/top',function() {
     return view('toppage');
-});
-Route::get('/quiz',function() {
-    return view('quiz');
+})->name('top');
+Route::get('/quiz',[QuestionController::class, 'index'])->name('questions.index')->middleware('auth');
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+#管理者ページのルーティング
+Route::middleware(['auth','admin'])->group(function(){
+    Route::get('/admin',[QuestionController::class,'admin'])->name('admin.index');
+    Route::get('/admin/{quesiton}/edit',[QuestionController::class,'edit'])->name('questions.edit');
+    Route::patch('/admin/{quesiton}',[QuestionController::class,'update'])->name('questions.update');
 });

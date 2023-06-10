@@ -1,5 +1,6 @@
 <x-app>
   <x-slot name='title'>初めてのWeb制作</x-slot>
+  <x-slot name='script'></x-slot>
   <section class="p-top-hero">
     <div class="p-top-hero__inner">
       <div class="p-top-hero__body">

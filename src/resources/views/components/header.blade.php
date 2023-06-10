@@ -4,11 +4,27 @@
   <div class="p-header__inner">
     <nav class="p-header__nav">
       <ul class="p-header__nav__list">
+        @if (Route::has('login'))
+          @auth
+          <li class="p-header__nav__item">
+            <a href="{{url('/dashboard')}}" class="p-header__nav__item__link">Dashboard</a>
+          </li>
+          @else
+          <li class="p-header__nav__item">
+            <a href="{{route('login')}}" class="p-header__nav__item__link">Log in</a>
+          </li>
+          @if (Route::has('register'))
+          <li class="p-header__nav__item">
+            <a href="{{route('register')}}" class="p-header__nav__item__link">Register</a>
+          </li>
+          @endif
+          @endauth
+        @endif
         <li class="p-header__nav__item">
-          <a href="./" class="p-header__nav__item__link">POSSEとは</a>
+          <a href="{{route('top')}}" class="p-header__nav__item__link">POSSEとは</a>
         </li>
         <li class="p-header__nav__item">
-          <a href="./quiz/" class="p-header__nav__item__link">クイズ</a>
+          <a href="{{route('questions.index')}}" class="p-header__nav__item__link">クイズ</a>
         </li>
       </ul>
     </nav>
