@@ -20,7 +20,7 @@
           <span class="p-quiz-box__question__title__text">{{$question->content}}</span>
         </h2>
         <figure class="p-quiz-box__question__image">
-          <img src="{{asset('/img/quiz/img-quiz01.png')}}" alt="">
+          <img src="{{asset('storage/'.$question->image)}}" alt="" > 
         </figure>
       </div>
       <div class="p-quiz-box__answer">

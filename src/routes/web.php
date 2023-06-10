@@ -42,6 +42,9 @@ Route::get('/users', [UserController::class, 'index'])->name('users.index');
 #管理者ページのルーティング
 Route::middleware(['auth','admin'])->group(function(){
     Route::get('/admin',[QuestionController::class,'admin'])->name('admin.index');
-    Route::get('/admin/{quesiton}/edit',[QuestionController::class,'edit'])->name('questions.edit');
-    Route::patch('/admin/{quesiton}',[QuestionController::class,'update'])->name('questions.update');
+    Route::get('/admin/create',[QuestionController::class,'create'])->name('questions.create');
+    Route::post('admin/store',[QuestionController::class,'store'])->name('questions.store');
+    Route::get('/admin',[QuestionController::class,'admin'])->name('admin.index');
+    Route::get('/admin/{question}/edit',[QuestionController::class,'edit'])->name('questions.edit');
+    Route::patch('/admin/{question}',[QuestionController::class,'update'])->name('questions.update');
 });
