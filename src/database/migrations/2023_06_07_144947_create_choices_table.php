@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('valid');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('question_id')->references('id')->on('questions');
         });

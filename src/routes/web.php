@@ -47,4 +47,5 @@ Route::middleware(['auth','admin'])->group(function(){
     Route::get('/admin',[QuestionController::class,'admin'])->name('admin.index');
     Route::get('/admin/{question}/edit',[QuestionController::class,'edit'])->name('questions.edit');
     Route::patch('/admin/{question}',[QuestionController::class,'update'])->name('questions.update');
+    Route::delete('/admin/{question}',[QuestionController::class,'destroy'])->name('questions.destroy');
 });

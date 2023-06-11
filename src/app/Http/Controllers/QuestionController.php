@@ -14,14 +14,17 @@ class QuestionController extends Controller
     }
 
     public function admin(){
-        $questions=Question::with('choices')->get();
+        
+        $questions=Question::withTrashed()->with('choices')->get();
+      
+      
         return view('admin',compact('questions'));
     }
     public function create(){
         return view('new');
     }
     public function store(Request $request){
-        $question=new Question;
+
         $validated1=$request->validate([
             'content'=>'required|max:200',
             'image'=>'required',
@@ -29,7 +32,7 @@ class QuestionController extends Controller
         //画像のオリジナルネームを取得
        
         $image = $request->file('image');
-        $img_path = $image->storeAs('', $image->getClientOriginalName());
+        $img_path = $image->storeAs('', $image->getClientOriginalName(),'public');
        
         $result['image']=$img_path;
         $result['content']=$validated1['content'];
@@ -72,12 +75,22 @@ class QuestionController extends Controller
             'image'=>'required',
         ]);
         if($request->supplement){
-            $validated['supplement']=$request->supplement;
+            $result['supplement']=$request->supplement;
         }
+        $image = $request->file('image');
+        $img_path = $image->storeAs('', $image->getClientOriginalName(),'public');
+        $result['image']=$img_path;
+        $result['content']=$validated['content'];
 
-        $question->update($validated);
+        $question->update($result);
 
         session()->flash('message','更新しました');
         return redirect()->route('admin.index');
+    }
+    public function destroy(Question $question){
+        $question->delete();
+        session()->flash('message','削除しました');
+        return redirect()->route('admin.index');
+    
     }
 }

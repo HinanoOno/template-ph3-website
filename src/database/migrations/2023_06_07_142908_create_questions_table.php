@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('content');
             $table->string('image');
             $table->string('supplement')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -26,5 +27,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('questions');
+        
     }
 };

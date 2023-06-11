@@ -9,7 +9,7 @@
   </head>
   <body>
    
-    <div class="grid grid-cols-6 gap-4">
+    <div class="grid grid-cols-6 ">
       <div class="col-span-1">
         <div class="flex  overflow-hidden bg-white rounded-lg min-h-screen bg-neutral-800">
           <div class="hidden md:flex md:flex-shrink-0">
