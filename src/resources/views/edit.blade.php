@@ -21,15 +21,15 @@
       </div>
       <div class="mb-6">
         <label for="choice1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">選択肢1</label>
-        <input type="text" name="choice1"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required value='{{old('choice1',$question->choices[0]['name'])}}' >
+        <input type="text" name="choice[]"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required value='{{old('choice.0',$question->choices[0]['name'])}}' >
       </div>
       <div class="mb-6">
         <label for="choice2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">選択肢2</label>
-        <input type="text" name="choice2"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required value='{{old('choice2',$question->choices[1]['name'])}}'>
+        <input type="text" name="choice[]"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required value='{{old('choice.1',$question->choices[1]['name'])}}'>
       </div>
       <div class="mb-6">
         <label for="choice3" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> 選択肢3</label>
-        <input type="text" name="choice3"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required value='{{old('choice3',$question->choices[2]['name'])}}'>
+        <input type="text" name="choice[]"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required value='{{old('choice.2',$question->choices[2]['name'])}}'>
       </div>
       <div class="mb-6">
         <label for="answer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">正解の選択肢</label>
