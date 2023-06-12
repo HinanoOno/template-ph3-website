@@ -130,11 +130,11 @@
                   
                   </tbody>
               </table>
-              <div class="mt-1 mb-1 row justify-content-center">
-                {{ $questions->links() }}
-              </div>
-
           </div>
+          <div class="mt-1 mb-1 row justify-content-center">
+            {{ $questions->links() }}
+          </div>
+
       </div>
     </div>
     <script>

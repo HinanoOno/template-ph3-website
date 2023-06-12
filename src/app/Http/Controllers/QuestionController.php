@@ -16,9 +16,7 @@ class QuestionController extends Controller
     public function index(){
         
         $questions=Question::withTrashed()->with('choices')->paginate(20);
-     
-      
-      
+
         return view('admin',compact('questions'));
     }
     public function create(){
