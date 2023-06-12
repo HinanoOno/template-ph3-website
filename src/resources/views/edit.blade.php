@@ -4,7 +4,7 @@
       <li>{{$error}}</li>
     @endforeach
    
-    <form method="post" action="{{ route('questions.update', $question) }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('admin.update', $question) }}" enctype="multipart/form-data">
       @csrf
       @method('patch')
       <div class="mb-6">

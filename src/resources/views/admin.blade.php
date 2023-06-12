@@ -1,9 +1,14 @@
 <x-adminapp>
   <x-slot name='slot'>
-    @if (session('message'))
-      <div class="flash_message">
-        {{ session('message') }}
+    @if (session('success'))
+      <div class="bg-blue-100 border border-blue-500 text-blue-700 px-4 py-3 rounded" role="alert">
+        <p class="text-sm">{{session('success')}}</p>
       </div>
+    @elseif(session('fail'))
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded" role="alert">
+        <p class="text-sm">{{ session('fail') }}</p>
+      </div>
+   
     @endif
     <div class="flex flex-col">
       <div class="w-full">
@@ -74,12 +79,12 @@
                           @endforeach
                           <td class="px-6 py-4">
                             <div class="text-sm text-gray-500">
-                            <button class="px-4 py-1 text-sm text-blue-600 bg-blue-200 rounded-full"><a href='{{route('questions.edit',$question->id)}}'>編集</a></button>
+                            <button class="px-4 py-1 text-sm text-blue-600 bg-blue-200 rounded-full"><a href='{{route('admin.edit',$question->id)}}'>編集</a></button>
                             </div>
                           </td>
                           <td class="px-6 py-4">
                             <div class="text-sm text-gray-500">
-                            <form  method='post' action="{{route('questions.destroy',$question)}}">
+                            <form  method='post' action="{{route('admin.destroy',$question)}}">
                               @csrf
                               @method('delete')
                               <button class="px-4 py-1 text-sm text-red-600 bg-red-200 rounded-full" onclick='delete_alert()'>削除</button>
@@ -122,9 +127,13 @@
                       @endif
 
                     @endforeach
-
+                  
                   </tbody>
               </table>
+              <div class="mt-1 mb-1 row justify-content-center">
+                {{ $questions->links() }}
+              </div>
+
           </div>
       </div>
     </div>

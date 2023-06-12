@@ -36,11 +36,11 @@ require __DIR__.'/auth.php';
 Route::get('/top',function() {
     return view('toppage');
 })->name('top');
-Route::get('/quiz',[QuestionController::class, 'index'])->name('questions.index')->middleware('auth');
+Route::get('/quiz',[QuestionController::class, 'quiz'])->name('questions.index')->middleware('auth');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
 #管理者ページのルーティング
-Route::middleware(['auth','admin'])->group(function(){
+/*Route::middleware(['auth','admin'])->group(function(){
     Route::get('/admin',[QuestionController::class,'admin'])->name('admin.index');
     Route::get('/admin/create',[QuestionController::class,'create'])->name('questions.create');
     Route::post('admin/store',[QuestionController::class,'store'])->name('questions.store');
@@ -48,4 +48,14 @@ Route::middleware(['auth','admin'])->group(function(){
     Route::get('/admin/{question}/edit',[QuestionController::class,'edit'])->name('questions.edit');
     Route::patch('/admin/{question}',[QuestionController::class,'update'])->name('questions.update');
     Route::delete('/admin/{question}',[QuestionController::class,'destroy'])->name('questions.destroy');
+});*/
+
+Route::middleware(['auth','admin'])->group(function(){
+    Route::resource('admin', QuestionController::class)->parameters([
+        'admin'=>'question'
+
+    ]);
+
 });
+
+

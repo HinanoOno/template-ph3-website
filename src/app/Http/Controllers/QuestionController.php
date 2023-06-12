@@ -8,14 +8,15 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
-    public function index(){
+    public function quiz(){
         $questions=Question::with('choices')->get();
         return view('quiz',compact('questions'));
     }
 
-    public function admin(){
+    public function index(){
         
-        $questions=Question::withTrashed()->with('choices')->get();
+        $questions=Question::withTrashed()->with('choices')->paginate(20);
+     
       
       
         return view('admin',compact('questions'));
@@ -42,15 +43,14 @@ class QuestionController extends Controller
         $question=Question::create($result);
         $questionId= DB::getPdo()->lastInsertId();
         $validated2=$request->validate([
-            'choice1'=>'required|max:100',
-            'choice2'=>'required|max:100',
-            'choice3'=>'required|max:100',
+            'choice.*'=>'required|max:100',
             'answer'=>'required|integer|min:1|max:3'
         ]);
-        $choices=[$validated2['choice1'],$validated2['choice2'],$validated2['choice3']];
-        for($i=1; $i<=count($choices); $i++){
+        $choices=[$validated2['choice']];
+       
+        for($i=1; $i<=count($choices[0]); $i++){
             
-            $data['name']=$choices[$i-1];
+            $data['name']=$choices[0][$i-1];
             $data['question_id']=$questionId;
             if($i==$validated2['answer']){
                 $data['valid']=1;
@@ -63,7 +63,7 @@ class QuestionController extends Controller
 
         }
        
-        session()->flash('message','新しい設問を作成しました');
+        session()->flash('success','新しい設問を作成しました');
         return redirect()->route('admin.index');
     }
     public function edit(Question $question){
@@ -84,12 +84,17 @@ class QuestionController extends Controller
 
         $question->update($result);
 
-        session()->flash('message','更新しました');
+        session()->flash('success','更新しました');
         return redirect()->route('admin.index');
     }
     public function destroy(Question $question){
         $question->delete();
-        session()->flash('message','削除しました');
+        if(isset($question->deleted_at)){
+            session()->flash('success','削除に成功しました');
+        }
+        else{
+            session()->flash('fail','削除に失敗しました');
+        }
         return redirect()->route('admin.index');
     
     }
