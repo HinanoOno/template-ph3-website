@@ -1,8 +1,7 @@
 # template-ph3-website
 
 ## 環境構築
-①docker compose build --no-cahce
-
+①docker compose build --no-cache
 ②docker compose up -d
 
 ## ブラウザ表示
