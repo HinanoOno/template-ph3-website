@@ -17,8 +17,9 @@ class Choice extends Model
         'name',
         'valid',
     ];
+
+    #withtrashed無くした
     public function question(){
-        return $this->belongsTo(Question::class)->withTrashed();
-        #論理削除したものも含める
+        return $this->belongsTo(Question::class);
     }
 }

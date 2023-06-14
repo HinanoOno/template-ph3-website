@@ -66,49 +66,58 @@ class AdminQuestionController extends Controller
     public function edit(Question $question){
         return view('quiz-edit',compact('question'));
     }
-    public function update(Request $request,Question $question){
 
-        $validated1=$request->validate([
-            'content'=>'required|max:200',
-            'image'=>'required',
-        ]);
-        //画像のオリジナルネームを取得
-       
-        $image = $request->file('image');
-        $img_path = $image->storeAs('', $image->getClientOriginalName(),'public');
-       
-        $result['image']=$img_path;
-        $result['content']=$validated1['content'];
-        if($request->supplement){
-            $result['supplement']=$request->supplement;
+    #$questionから$idに変更
+    public function update(Request $request,$id){
+        $question=Question::findorfail($id);
+        if(!isset($question)){
+            return redirect()->route('admin.index');
         }
-        $question->update($result);
-        $questionId= $question->id;   
-        $validated2=$request->validate([
-            'choice.*'=>'required|max:100',
-            'answer'=>'required|integer|min:1|max:3'
-        ]);
-        $choices=[$validated2['choice']];
-       
-        for($i=1; $i<=count($choices[0]); $i++){
-            
-            $data['name']=$choices[0][$i-1];
-            $data['question_id']=$questionId;
-            if($i==$validated2['answer']){
-                $data['valid']=1;
+        else{
+            $validated1=$request->validate([
+                'content'=>'required|max:200',
+                'image'=>'required',
+            ]);
+            //画像のオリジナルネームを取得
+           
+            $image = $request->file('image');
+            $img_path = $image->storeAs('', $image->getClientOriginalName(),'public');
+           
+            $result['image']=$img_path;
+            $result['content']=$validated1['content'];
+            if($request->supplement){
+                $result['supplement']=$request->supplement;
             }
-            else{
-                $data['valid']=0;
+            $question->update($result);
+            $questionId= $question->id;   
+            $validated2=$request->validate([
+                'choice.*'=>'required|max:100',
+                'answer'=>'required|integer|min:1|max:3'
+            ]);
+            $choices=[$validated2['choice']];
+           
+            for($i=1; $i<=count($choices[0]); $i++){
+                
+                $data['name']=$choices[0][$i-1];
+                $data['question_id']=$questionId;
+                if($i==$validated2['answer']){
+                    $data['valid']=1;
+                }
+                else{
+                    $data['valid']=0;
+                }
+              
+                $choice=$question->choices[$i-1]
+    ;           $choice->update($data);
+    
             }
-          
-            $choice=$question->choices[$i-1]
-;           $choice->update($data);
-
+           
+    
+            session()->flash('success','更新しました');
+            return redirect()->route('admin.index');
         }
-       
 
-        session()->flash('success','更新しました');
-        return redirect()->route('admin.index');
+       
     }
     #論理削除
     public function destroy(Question $question){
