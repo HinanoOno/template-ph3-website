@@ -10,6 +10,8 @@
       </div>
    
     @endif
+
+
     <div class="flex flex-col">
       <div class="w-full">
           <div class="border-b border-gray-200 shadow w-full">
@@ -141,6 +143,7 @@
       function delete_alert(){
         window.confirm('本当に削除しますか')
       }
+
     </script>
   </x-slot>
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\AdminQuestionController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -51,7 +52,7 @@ Route::get('/users', [UserController::class, 'index'])->name('users.index');
 });*/
 
 Route::middleware(['auth','admin'])->group(function(){
-    Route::resource('admin', QuestionController::class)->parameters([
+    Route::resource('admin', AdminQuestionController::class)->parameters([
         'admin'=>'question'
 
     ]);
