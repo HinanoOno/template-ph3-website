@@ -6,8 +6,8 @@
 ②docker compose up -d
 
 ## ブラウザ表示
-クイズページhttp:localhost/quiz 
+クイズページhttp://localhost/quiz 
 
-管理者ページhttp:localhost/admin
+管理者ページhttp://localhost/admin
 
 
